@@ -7,9 +7,14 @@ public class ObstacleShape : MonoBehaviour
 {
     [SerializeField] private List<Material> materials;
     [SerializeField] private int obstacleDuration = 15;
+    [SerializeField] private List<Transform> _castPoints;
+    [SerializeField] private Transform _centrePoint;
 
     private Fade fade;
     private MeshRenderer meshRenderer;
+
+    public List<Transform> castPoints { get { return _castPoints; } private set { _castPoints = value; } }
+    public Transform centrePoint { get { return _centrePoint; } private set { _centrePoint = value; } }
 
     void Awake() {
         fade = GetComponent<Fade>();
