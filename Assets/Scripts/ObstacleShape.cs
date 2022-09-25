@@ -25,7 +25,6 @@ public class ObstacleShape : MonoBehaviour
     {
         // Sets the material of the obstacle based on the current level
         meshRenderer.material = materials[GameManager.instance.level - 1];
-        fade.MoveDown();
         StartCoroutine("RemoveObstacle", 0);
     }
 

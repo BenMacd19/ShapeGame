@@ -51,9 +51,14 @@ public class Movement : MonoBehaviour
             isMoving = true;
             Vector3 newPosition = transform.position + direction;
 
+            float moveDirectionX = transform.position.x + direction.x;
+            float moveDirectionZ = transform.position.z + direction.z;
+
             // Leens the player to the input direction
             // On completing the move a check is made to move the player early
-            transform.LeanMoveLocal(newPosition, moveDuration).setEaseOutCubic().setOnComplete(CheckEarlyInput);
+            Rotate(direction);
+            transform.LeanMoveLocalX(moveDirectionX, moveDuration).setEaseInOutSine();
+            transform.LeanMoveLocalZ(moveDirectionZ, moveDuration).setEaseInOutSine().setOnComplete(CheckEarlyInput);
         }
     }
 
@@ -95,5 +100,23 @@ public class Movement : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void Rotate(Vector3 direction)
+    {
+        Vector3 newRotation = new Vector3(direction.z, direction.y, -direction.x);
+        transform.LeanRotateAround(newRotation, 90, moveDuration).setEaseInOutSine();
+        transform.LeanMoveLocalY(transform.position.y + SquareCircleDifference() / 2, moveDuration / 2).setEaseInOutSine().setOnComplete(MoveDown);
+    }
+
+    private float SquareCircleDifference()
+    {
+        float y = Mathf.Sqrt(2 * (transform.localScale.y * transform.localScale.y)) - transform.localScale.y;
+        return y;
+    }
+
+    private void MoveDown()
+    {
+        transform.LeanMoveLocalY(transform.position.y - SquareCircleDifference() / 2, moveDuration / 2).setEaseInOutSine();
     }
 }

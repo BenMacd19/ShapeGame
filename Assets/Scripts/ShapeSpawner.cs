@@ -9,6 +9,7 @@ public class ShapeSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> shapePrefabs;
     [SerializeField] private List<GameObject> ObstacleShapePrefabs; 
     [SerializeField] private int minSpawnTime = 3, maxSpawnTime = 5;
+    [SerializeField] private float rayLength = 10;
 
     private int[] rotations = new int[] { 0, 90 };
     public Vector2 size;
@@ -17,18 +18,24 @@ public class ShapeSpawner : MonoBehaviour
     public void SpawnShapeOnGrid()
     {
         // Pick either a sphere or capsule to spawn
-        GameObject gameObject = shapePrefabs[Random.Range(0, shapePrefabs.Count)];
+        GameObject shape = shapePrefabs[Random.Range(0, shapePrefabs.Count)];
 
         // Find a random point on the plane
         Vector3 pos = GetRandomPoint();
 
-        while (Physics.Raycast(pos + new Vector3(0,10,0), Vector3.down, 20))
-        {
-            pos = GetRandomPoint();
-        }
+        Debug.DrawRay(pos, Vector3.down * 10, Color.red, 5);
 
-        // Spawn the shape at that position.
-        Instantiate(gameObject, pos, Quaternion.identity);
+        if (Physics.Raycast(pos, Vector3.down, 10))
+        {
+            //Debug.DrawRay(pos, Vector3.down * rayLength, Color.blue, 5);
+            SpawnShapeOnGrid();
+            return;
+        }
+        else
+        {
+            // Spawn the shape at that position.
+            Instantiate(shape, pos + shape.transform.position , shape.transform.rotation);
+        } 
     }
 
     // Spawns the obstacle shape on the plane at a random position every min - max amount of seconds
@@ -79,12 +86,12 @@ public class ShapeSpawner : MonoBehaviour
     {
         foreach (Transform castPoint in obstacleShape.castPoints)
         {
-            if (Physics.Raycast(pos + castPoint.position, Vector3.down, 10)) 
+            if (Physics.Raycast(pos + castPoint.position, Vector3.down, rayLength))
             {
-                Debug.DrawRay(pos + castPoint.position, Vector3.down * 10, Color.red, 5);
+                //Debug.DrawRay(pos + castPoint.position, Vector3.down * rayLength, Color.red, 5);
                 return false;
             }
-            Debug.DrawRay(pos + castPoint.position, Vector3.down * 10, Color.green, 5);
+            //Debug.DrawRay(pos + castPoint.position, Vector3.down * rayLength, Color.green, 5);
         }    
         return true; 
     }

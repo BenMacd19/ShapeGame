@@ -1586,9 +1586,9 @@ GameObject:
   - component: {fileID: 1261418665}
   - component: {fileID: 1261418664}
   - component: {fileID: 1261418662}
-  - component: {fileID: 1261418663}
   - component: {fileID: 1261418667}
   - component: {fileID: 1261418668}
+  - component: {fileID: 1261418663}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1626,8 +1626,8 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!136 &1261418663
-CapsuleCollider:
+--- !u!65 &1261418663
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1636,10 +1636,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.45
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1261418664
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1688,7 +1687,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261418661}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1261418666
 Transform:
   m_ObjectHideFlags: 0
@@ -1697,7 +1696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261418661}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1716,7 +1715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numTiles: 1
-  moveDuration: 0.15
+  moveDuration: 0.25
 --- !u!54 &1261418668
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2120,7 +2119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1397679741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2332,7 +2331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level: 1
   gameUI: {fileID: 1248332315}
-  player: {fileID: 0}
+  player: {fileID: 1261418661}
 --- !u!114 &1417729867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,8 +2351,9 @@ MonoBehaviour:
   - {fileID: 3306257000274424009, guid: 343fa167eb8c45b42b986969455d11c1, type: 3}
   - {fileID: 7723149028171679206, guid: 6f5c1be8333019041bfee6a48da90eb0, type: 3}
   - {fileID: 5443465939166265171, guid: a6cf3607f01f0594eb6333db4bd79827, type: 3}
-  minSpawnTime: 0
-  maxSpawnTime: 1
+  minSpawnTime: 1
+  maxSpawnTime: 3
+  rayLength: 9.5
   size: {x: 10, y: 10}
 --- !u!114 &1417729868
 MonoBehaviour:
